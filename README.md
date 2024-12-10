@@ -3,7 +3,7 @@ Sistema de repetición espaciada mediante el uso de Flashcards para el aprendiza
 
 #       Integrantes                         Codigo 
 ----->  Emmanuel Joseph Lesmes Salamanca    124772
------>
+----->  Oscar Alexander Sabogal Mongui      127493
 ----->
 
 
