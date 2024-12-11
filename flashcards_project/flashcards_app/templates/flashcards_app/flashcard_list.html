@@ -1,0 +1,36 @@
+{% extends 'flashcards_app/base.html' %}
+
+{% block content %}
+<h2>Flashcards de: {{ mazo.nombre }}</h2>
+<p>Progreso: {{ progreso }}%</p>
+
+<!-- Filtros -->
+<form method="GET" class="mb-3">
+    <div class="form-group">
+        <label for="filtro">Ver Tarjetas:</label>
+        <select name="filtro" id="filtro" class="form-control" onchange="this.form.submit()">
+            <option value="todos" {% if filtro == 'todos' %}selected{% endif %}>Todas</option>
+            <option value="completadas" {% if filtro == 'completadas' %}selected{% endif %}>Completadas</option>
+            <option value="pendientes" {% if filtro == 'pendientes' %}selected{% endif %}>Pendientes</option>
+        </select>
+    </div>
+</form>
+
+<!-- Lista de flashcards -->
+<ul>
+    {% for flashcard in flashcards %}
+    <li>
+        <strong>{{ flashcard.pregunta }}</strong><br>
+        Respuesta: {{ flashcard.respuesta }}<br>
+        Estado: {{ flashcard.get_estado }}<br>
+        <a href="{% url 'toggle_flashcard' flashcard.id %}" class="btn btn-secondary">
+            Marcar como {{ 'Pendiente' if flashcard.completada else 'Completada' }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'add_flashcard' mazo.id %}" class="btn btn-primary">Agregar Flashcard</a>
+{% endblock %}
+endblock %}
+

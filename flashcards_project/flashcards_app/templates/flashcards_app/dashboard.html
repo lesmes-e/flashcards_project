@@ -1,0 +1,13 @@
+{% extends 'flashcards_app/base.html' %}
+
+{% block content %}
+<h2>Bienvenido, {{ user.username }}</h2>
+<h3>Progreso de tus mazos:</h3>
+<ul>
+    {% for mazo in mazos %}
+    <li>
+        <a href="{% url 'flashcard_list' mazo.id %}">{{ mazo.nombre }}</a> - Progreso: {{ mazo.get_progreso }}%
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
