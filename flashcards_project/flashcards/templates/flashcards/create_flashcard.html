@@ -1,19 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Crear Flashcard</title>
+    <title>Crear Flashcard - FlashCards App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        textarea {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            resize: none;
+            height: 80px;
+        }
+        .button {
+            padding: 10px 15px;
+            font-size: 16px;
+            color: #fff;
+            text-decoration: none;
+            background-color: #36C9C6;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #2a9a99;
+        }
+        .back-link {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .back-link a {
+            color: #36C9C6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <h1>Crear una Nueva Flashcard para el Mazo: {{ deck.name }}</h1>
     <form method="POST">
         {% csrf_token %}
         <label for="question">Pregunta:</label>
-        <textarea id="question" name="question" required></textarea>
-        <br>
+        <textarea id="question" name="question" placeholder="Escribe la pregunta aquí..." required></textarea>
         <label for="answer">Respuesta:</label>
-        <textarea id="answer" name="answer" required></textarea>
-        <br>
-        <button type="submit">Crear</button>
+        <textarea id="answer" name="answer" placeholder="Escribe la respuesta aquí..." required></textarea>
+        <button type="submit" class="button">Crear Flashcard</button>
     </form>
+    <div class="back-link">
+        <a href="{% url 'list_flashcards' deck.id %}">Volver a las Flashcards</a>
+    </div>
 </body>
 </html>

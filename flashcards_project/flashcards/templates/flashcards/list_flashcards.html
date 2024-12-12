@@ -1,24 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Flashcards en {{ deck.name }}</title>
+    <title>Flashcards en {{ deck.name }} - FlashCards App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .button {
+            padding: 10px 15px;
+            font-size: 16px;
+            color: #fff;
+            text-decoration: none;
+            background-color: #36C9C6;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+        }
+        .button:hover {
+            background-color: #2a9a99;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+            max-width: 600px;
+        }
+        li {
+            background-color: #ffffff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        li strong {
+            font-size: 16px;
+        }
+        li small {
+            color: #666;
+        }
+        .actions {
+            margin-top: 10px;
+        }
+        .actions a {
+            font-size: 14px;
+            text-decoration: none;
+            color: #36C9C6;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .actions a:hover {
+            text-decoration: underline;
+        }
+        .back-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .back-link a {
+            color: #36C9C6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <h1>Flashcards en el Mazo: {{ deck.name }}</h1>
-    <a href="{% url 'create_flashcard' deck.id %}">Añadir Flashcard</a>
+    <a href="{% url 'create_flashcard' deck.id %}" class="button">Añadir Flashcard</a>
     <ul>
         {% for flashcard in flashcards %}
         <li>
             <strong>{{ flashcard.question }}</strong> - {{ flashcard.answer }}
-            <br>
             <small>Caja Actual: {{ flashcard.box_number }}</small>
-            <br>
-            <a href="{% url 'edit_flashcard' flashcard.id %}">Editar</a> |
-            <a href="{% url 'delete_flashcard' flashcard.id %}">Eliminar</a>
+            <div class="actions">
+                <a href="{% url 'edit_flashcard' flashcard.id %}">Editar</a>
+                <a href="{% url 'delete_flashcard' flashcard.id %}">Eliminar</a>
+            </div>
         </li>
         {% empty %}
         <p>No hay flashcards en este mazo.</p>
         {% endfor %}
     </ul>
+    <div class="back-link">
+        <a href="{% url 'list_decks' %}">Volver a la Dashboard</a>
+    </div>
 </body>
 </html>
