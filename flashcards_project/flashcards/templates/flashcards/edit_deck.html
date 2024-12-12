@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Mazo</title>
+</head>
+<body>
+    <h1>Editar Mazo: {{ deck.name }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="name">Nuevo Nombre:</label>
+        <input type="text" id="name" name="name" value="{{ deck.name }}" required>
+        <button type="submit">Guardar Cambios</button>
+    </form>
+</body>
+</html>

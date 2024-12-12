@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Estudiar - {{ deck.name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        .flashcard {
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            margin: auto;
+        }
+        .flashcard h3 {
+            margin-bottom: 20px;
+        }
+        .flashcard .answer {
+            display: none;
+            margin-top: 20px;
+            color: #555;
+        }
+        .actions {
+            margin-top: 20px;
+        }
+        .actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            background-color: #007bff;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .actions button.not-learned {
+            background-color: #dc3545;
+        }
+        .actions button.show-answer {
+            background-color: #28a745;
+        }
+    </style>
+    <script>
+        function showAnswer() {
+            document.getElementById('answer').style.display = 'block';
+            document.getElementById('show-answer-btn').style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+    <h1>Estudiar: {{ deck.name }}</h1>
+
+    {% if flashcards %}
+        <div class="flashcard">
+            <h3>Pregunta:</h3>
+            <p>{{ flashcards.0.question }}</p>
+            <div id="answer" class="answer">
+                <h3>Respuesta:</h3>
+                <p>{{ flashcards.0.answer }}</p>
+            </div>
+            <div class="actions">
+                <form method="POST" action="{% url 'mark_flashcard_learned' flashcards.0.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Marcar como aprendida</button>
+                </form>
+                <button id="show-answer-btn" class="show-answer" onclick="showAnswer()">Mostrar respuesta</button>
+                <form method="POST" action="{% url 'mark_flashcard_not_learned' flashcards.0.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="not-learned">Marcar como no aprendida</button>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <p>No hay flashcards disponibles para estudiar.</p>
+    {% endif %}
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{% url 'list_decks' %}">Volver al Dashboard</a>
+    </div>
+</body>
+</html>
+

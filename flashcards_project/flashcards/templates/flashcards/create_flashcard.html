@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crear Flashcard</title>
+</head>
+<body>
+    <h1>Crear una Nueva Flashcard para el Mazo: {{ deck.name }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="question">Pregunta:</label>
+        <textarea id="question" name="question" required></textarea>
+        <br>
+        <label for="answer">Respuesta:</label>
+        <textarea id="answer" name="answer" required></textarea>
+        <br>
+        <button type="submit">Crear</button>
+    </form>
+</body>
+</html>

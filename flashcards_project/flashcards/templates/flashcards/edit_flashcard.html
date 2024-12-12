@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Flashcard</title>
+</head>
+<body>
+    <h1>Editar Flashcard</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="question">Pregunta:</label>
+        <textarea id="question" name="question" required>{{ flashcard.question }}</textarea>
+        <br>
+        <label for="answer">Respuesta:</label>
+        <textarea id="answer" name="answer" required>{{ flashcard.answer }}</textarea>
+        <br>
+        <button type="submit">Guardar Cambios</button>
+    </form>
+</body>
+</html>

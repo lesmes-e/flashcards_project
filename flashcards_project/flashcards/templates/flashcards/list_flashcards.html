@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flashcards en {{ deck.name }}</title>
+</head>
+<body>
+    <h1>Flashcards en el Mazo: {{ deck.name }}</h1>
+    <a href="{% url 'create_flashcard' deck.id %}">Añadir Flashcard</a>
+    <ul>
+        {% for flashcard in flashcards %}
+        <li>
+            <strong>{{ flashcard.question }}</strong> - {{ flashcard.answer }}
+            <br>
+            <small>Caja Actual: {{ flashcard.box_number }}</small>
+            <br>
+            <a href="{% url 'edit_flashcard' flashcard.id %}">Editar</a> |
+            <a href="{% url 'delete_flashcard' flashcard.id %}">Eliminar</a>
+        </li>
+        {% empty %}
+        <p>No hay flashcards en este mazo.</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>
