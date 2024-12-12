@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import JsonResponse
 from .models import Deck, FlashCard
 
 def list_decks(request):
@@ -7,7 +6,8 @@ def list_decks(request):
     Muestra todos los mazos disponibles para el usuario.
     """
     decks = Deck.objects.all()
-    return render(request, 'flashcards/dashboard.html', {'decks': decks})
+    ranking = FlashCard.objects.order_by('-repeat_count')[:5]  # Agregar el ranking de flashcards
+    return render(request, 'flashcards/dashboard.html', {'decks': decks, 'ranking': ranking})
 
 def create_deck(request):
     """

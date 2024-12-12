@@ -7,6 +7,7 @@
             font-family: Arial, sans-serif;
             margin: 20px;
             background-color: #f4f4f9;
+            color: #333;
         }
         h1 {
             color: #333;
@@ -15,21 +16,46 @@
             margin-bottom: 40px;
         }
         .deck {
-            padding: 10px;
-            background-color: #fff;
+            padding: 15px;
+            background-color: #ffffff;
             border: 1px solid #ddd;
-            margin-bottom: 10px;
-            border-radius: 5px;
+            margin-bottom: 15px;
+            border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
         .deck h3 {
             margin: 0 0 10px 0;
         }
-        .ranking {
-            padding: 10px;
-            background-color: #fff;
-            border: 1px solid #ddd;
+        .deck p {
+            margin: 5px 0;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
+            font-size: 14px;
+            color: #fff;
+            text-decoration: none;
+            background-color: #36C9C6;
+            border: none;
             border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #2a9a99;
+        }
+        .create-deck {
+            display: inline-block;
+            margin: 20px 0;
+        }
+        .ranking {
+            padding: 15px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .ranking-item {
@@ -47,29 +73,30 @@
         <div class="deck">
             <h3>{{ deck.name }}</h3>
             <p>Progreso: {{ deck.calculate_progress|floatformat:2 }}%</p>
-            <a href="{% url 'list_flashcards' deck.id %}">Ver Flashcards</a> |
-            <a href="{% url 'edit_deck' deck.id %}">Editar</a> |
-            <a href="{% url 'delete_deck' deck.id %}">Eliminar</a>
-            <a href="{% url 'study_flashcards' deck.id %}">Estudiar</a>
+            <a href="{% url 'list_flashcards' deck.id %}" class="button">Ver Flashcards</a>
+            <a href="{% url 'edit_deck' deck.id %}" class="button">Editar</a>
+            <a href="{% url 'delete_deck' deck.id %}" class="button">Eliminar</a>
+            <a href="{% url 'study_flashcards' deck.id %}" class="button">Estudiar</a>
         </div>
         {% empty %}
-        <p>No hay mazos disponibles. <a href="{% url 'create_deck' %}">Crear uno nuevo</a>.</p>
+        <p>No hay mazos disponibles. ¡Crea uno nuevo a continuación!</p>
         {% endfor %}
+        <div class="create-deck">
+            <a href="{% url 'create_deck' %}" class="button">Crear Nuevo Mazo</a>
+        </div>
     </div>
 
     <!-- Sección de ranking de flashcards -->
     <div class="section">
         <h2>Ranking de FlashCards Más Repetidas</h2>
         <div class="ranking">
+            {% for flashcard in ranking %}
             <div class="ranking-item">
-                <strong>FlashCard 1:</strong> 5 repeticiones
+                <strong>{{ flashcard.question }}:</strong> {{ flashcard.repeat_count }} repeticiones
             </div>
-            <div class="ranking-item">
-                <strong>FlashCard 2:</strong> 3 repeticiones
-            </div>
-            <div class="ranking-item">
-                <strong>FlashCard 3:</strong> 2 repeticiones
-            </div>
+            {% empty %}
+            <p>No hay flashcards en el ranking.</p>
+            {% endfor %}
         </div>
     </div>
 </body>

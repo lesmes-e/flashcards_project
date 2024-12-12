@@ -45,11 +45,14 @@ class Deck(models.Model):
         shuffle(flashcards)
         return flashcards
 
+from django.db import models
+
 class FlashCard(models.Model):
     question = models.TextField()
     answer = models.TextField()
-    deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
+    deck = models.ForeignKey('Deck', on_delete=models.CASCADE)
     box_number = models.IntegerField(default=1)
+    repeat_count = models.IntegerField(default=0)  # Nuevo campo
 
     def mark_learned(self):
         """
@@ -57,6 +60,7 @@ class FlashCard(models.Model):
         """
         if self.box_number < 5:
             self.box_number += 1
+        self.repeat_count += 1  # Incrementar contador de repeticiones
         self.save()
 
     def mark_not_learned(self):
@@ -65,6 +69,7 @@ class FlashCard(models.Model):
         """
         if self.box_number > 1:
             self.box_number -= 1
+        self.repeat_count += 1  # Incrementar contador de repeticiones
         self.save()
 
     def reset_to_first_box(self):
