@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crear Mazo</title>
+</head>
+<body>
+    <h1>Crear un Nuevo Mazo</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="name">Nombre del Mazo:</label>
+        <input type="text" id="name" name="name" required>
+        <button type="submit">Crear</button>
+    </form>
+</body>
+</html>
